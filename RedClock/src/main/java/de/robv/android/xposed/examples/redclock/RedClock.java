@@ -1,11 +1,12 @@
 package de.robv.android.xposed.examples.redclock;
 
-import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import android.graphics.Color;
 import android.widget.TextView;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
+
+import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 
 public class RedClock implements IXposedHookLoadPackage {
 	public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
@@ -17,7 +18,7 @@ public class RedClock implements IXposedHookLoadPackage {
 			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 				TextView tv = (TextView) param.thisObject;
 				String text = tv.getText().toString();
-				tv.setText(text + " :)");
+				tv.setText(String.format("%s :)", text));
 				tv.setTextColor(Color.RED);
 			}
 		});
